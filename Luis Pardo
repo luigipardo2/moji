@@ -1,0 +1,71 @@
+/**
+ * Title:            ClubEntrance
+ * Semester:         COP3337 Fall 2024
+ * @author           Luis Pardo
+ * ---------------------------------------------------------------------
+ * I affirm that this program is entirely my own work
+ * and none of it is the work of any other person.
+ *----------------------------------------------------------------------
+ * This program controls the amount of people who can enter a club and keeps count of them.
+ * The concepts applied are if/else statements, scanner, constants and variables, while loops, print and print.ln, relation operators, simple math operators, and boolean.
+ */
+
+
+
+
+import java.util.Scanner;
+
+public class ClubEntrance {
+
+    public static void main(String[] args) {
+
+        final int MAX_OCCUPANTS = 100; // constant for the maximum occupants
+
+        int currentOccupants = 0; // variable for tracking how many people are currently inside the club
+
+        boolean clubFull = false; // variable for  the while loop,ending the program if club is full
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (!clubFull) {
+
+            System.out.print("Enter how many people want to enter or leave the club: ");
+
+            int groupSize = scanner.nextInt(); // user input for amount of people in group
+
+            if (groupSize > 0) { // positive group number means entering the club
+
+                if (currentOccupants + groupSize <= MAX_OCCUPANTS) { // checks that the group fits inside the club, then adds the group to the currentOccupants
+                    currentOccupants += groupSize;
+                }
+                    else {
+                        System.out.println("The group is too large to enter the club."); //If the group makes the club be over capacity, we do not add them to the currentOccupants and we tell them they cannot enter
+                }
+            }
+
+            else if (groupSize < 0) { // negative group number means leaving club
+                groupSize = -groupSize; // turn the groupSize value into a positive in order to check if everyone is leaving.
+
+                if (currentOccupants >= groupSize) { // checks if everyone is leaving the club or if only some people are leaving
+                    currentOccupants -= groupSize;
+                }
+                    else { // everyone has left the club, sets currentOccupants to 0!
+                        currentOccupants = 0;
+                        System.out.println("Everyone has left the club.");
+                }
+            }
+                else {
+                // input is zero, which means there is nobody leaving or entering (joke included)
+                System.out.println("Talked to a ghost, nobody left or entered the club.");
+            }
+
+              System.out.println("Currently there are " + currentOccupants + " people in the club."); // after every group that enters or leaves, remind the user how many people are in the club
+
+            if (currentOccupants == MAX_OCCUPANTS) { //checks if club is full
+                System.out.println("The club is at capacity. The program will end.");
+                clubFull = true; // club is full, ends the loop and the program
+            }
+        }
+
+    }
+}
